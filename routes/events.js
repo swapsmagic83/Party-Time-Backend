@@ -55,5 +55,15 @@ router.get('/view/:invite_id',async function (req,res,next) {
         return next(err)
     }
 })
+router.get('/:email', async function(req,res,next) {
+    try{
+        const events = await Event.findEventsByEmail(req.params.email)
+        console.log("this is list of events by host",events)
+        return res.json({events})
+    }
+    catch(err){
+        return next(err)
+    }
+})
 
 module.exports = router

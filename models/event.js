@@ -86,5 +86,18 @@ class Event {
         const event = result.rows[0];
         return event;
     } 
+    static async findEventsByEmail(email){
+        const result = await db.query(
+            `select * from events 
+            join hosts
+            on
+            events.host_id = hosts.id
+            where
+            hosts.email = $1`,
+            [email]
+        );
+        const events = result.rows;
+        return events
+    }
 }
 module.exports = Event;
