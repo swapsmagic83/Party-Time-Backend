@@ -1,4 +1,4 @@
-const db = require("../db")
+const db = require("../db");
 
 class Card {
 
@@ -12,8 +12,8 @@ class Card {
             where
             occasion = $1`,
             [occasion]
-        )
-        return res.rows
+        );
+        return res.rows;
     }
 
     static async getCardById(id){
@@ -27,14 +27,14 @@ class Card {
             where
             id = $1`,
             [id]
-        )
-        return res.rows[0]
+        );
+        return res.rows[0];
     }
     static async getAll(){
         const res = await db.query(
             `select * from cards`
-        )
-        return res.rows
+        );
+        return res.rows;
     }
 }
-module.exports = Card
+module.exports = Card;

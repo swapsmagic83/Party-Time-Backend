@@ -37,4 +37,4 @@ CREATE TABLE guests (
     phone VARCHAR(20),
     rsvp_status VARCHAR(20) DEFAULT 'pending',
     people INTEGER,
-)
+);

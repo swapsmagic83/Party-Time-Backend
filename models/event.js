@@ -3,6 +3,8 @@ const {NotFoundError,BadRequestError} = require("../expressError");
 const {v4: uuidv4} = require("uuid");
 
 class Event {
+
+    //add new event for host
     static async addEventInfo({
         host_id,card_id,
         heading,heading_color,
@@ -11,7 +13,7 @@ class Event {
         address, address_color
     }){
         //checking for duplicate event
-        console.log('this is chekcing duplicates',host_id,date_time,address)
+        
         const checkDuplicateEvent = await db.query(
             `select * 
             from events
@@ -26,8 +28,8 @@ class Event {
             return {
                 invite_id : existingEvent.invite_id,
                 id : existingEvent.id
-            }    
-        };
+            };  
+        }
         const invite_id = uuidv4();
         const result  = await db.query(
             `INSERT INTO events 
@@ -47,10 +49,11 @@ class Event {
             RETURNING
             id,host_id,card_id,heading,heading_color,info,info_color,date_time,date_time_color,address,address_color,invite_id`,
             [host_id,card_id,heading,heading_color,info,info_color,date_time,date_time_color,address,address_color,invite_id]
-        )
-        console.log('inserting event',host_id,date_time,address)
+        );
         return result.rows[0];
     }
+
+    //get single event by it's unique invite_id
     static async getEvent(invite_id){
         const result = await db.query(`
             select
@@ -65,6 +68,8 @@ class Event {
             if (!event) throw new NotFoundError(`Not found: ${invite_id}`)
                 return event;
     }
+
+    //find event by date, address and host_id
     static async findEventByDateAddressHost({date,address,host_id}){
         const result = await db.query(
             `select * from events
@@ -76,6 +81,8 @@ class Event {
         const event = result.rows[0];
         return event;
     }
+
+    //get single event by event id
     static async getEventByEventId(id){
         const result = await db.query(
             `select * from events
@@ -86,6 +93,8 @@ class Event {
         const event = result.rows[0];
         return event;
     } 
+
+    //find events by host's email id
     static async findEventsByEmail(email){
         const result = await db.query(
             `select * from events 
@@ -97,7 +106,7 @@ class Event {
             [email]
         );
         const events = result.rows;
-        return events
+        return events;
     }
 }
 module.exports = Event;

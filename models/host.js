@@ -1,6 +1,8 @@
-const db = require("../db")
+const db = require("../db");
 
 class Host {
+
+    //add new host info
     static async addHostInfo({name,email,phone,address}){
         const res = await db.query(
             `insert into hosts
@@ -10,18 +12,20 @@ class Host {
             returning
             id, name, email, phone, address`,
             [name,email,phone,address]
-        )
-        const host = res.rows[0]
-        return host
+        );
+        const host = res.rows[0];
+        return host;
     }
+
+    //find host by email id
     static async findHost({email}){
         const res = await db.query(
             `select * from hosts
             where email = $1`,
             [email]
-        )
-        const host = res.rows[0]
-        return host
+        );
+        const host = res.rows[0];
+        return host;
     }
 }
-module.exports = Host
+module.exports = Host;

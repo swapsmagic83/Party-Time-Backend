@@ -1,17 +1,17 @@
-const express = require('express')
-const app = express()
-const cors = require("cors")
+const express = require('express');
+const app = express();
+const cors = require("cors");
 const morgan = require("morgan");
-const {NotFoundError} = require("./expressError")
+const {NotFoundError} = require("./expressError");
 
-const cardRoutes = require("./routes/cards")
-const eventRoutes = require("./routes/events")
-app.use(cors())
-app.use(express.json())
+const cardRoutes = require("./routes/cards");
+const eventRoutes = require("./routes/events");
+app.use(cors());
+app.use(express.json());
 app.use(morgan("tiny"));
 
-app.use("/",cardRoutes)
-app.use("/events",eventRoutes)
+app.use("/",cardRoutes);
+app.use("/events",eventRoutes);
 
 
 /** Handle 404 errors -- this matches everything */
