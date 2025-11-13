@@ -5,13 +5,13 @@ CREATE TABLE hosts (
     email TEXT NOT NULL
         CHECK (position('@' IN email) > 1),
     phone TEXT,
-    address TEXT,
+    address TEXT
 );
 
 CREATE TABLE cards (
     id SERIAL PRIMARY KEY,
     occasion VARCHAR(25),
-    img_url TEXT,
+    img_url TEXT
 );
 
 CREATE TABLE events (
@@ -36,5 +36,5 @@ CREATE TABLE guests (
     email VARCHAR(150) NOT NULL,
     phone VARCHAR(20),
     rsvp_status VARCHAR(20) DEFAULT 'pending',
-    people INTEGER,
+    people INTEGER
 );
